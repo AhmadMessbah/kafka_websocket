@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check Client</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<h1>Check Processing</h1>
+<div>
+    <label>Check ID:</label>
+    <input id="checkId" type="text" placeholder="Enter Check ID">
+</div>
+<div>
+    <label>Account Number:</label>
+    <input id="accountNumber" type="text" placeholder="Enter Account Number">
+</div>
+<div>
+    <label>Amount:</label>
+    <input id="amount" type="number" placeholder="Enter Amount">
+</div>
+<button onclick="sendCheckRequest()">Send Check Request</button>
+<h2>Responses</h2>
+<div id="responses"></div>
+<script>
+    var socket = new SockJS('/ws');
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({}, function(frame) {
+        stompClient.subscribe('/topic/check-responses', function(message) {
+            var response = JSON.parse(message.body);
+            document.getElementById('responses').innerText +=
+                `Check ID: ${response.checkId}, Status: ${response.status}, Message: ${response.message}\n`;
+        });
+    });
+
+    function sendCheckRequest() {
+        var checkId = document.getElementById('checkId').value;
+        var accountNumber = document.getElementById('accountNumber').value;
+        var amount = document.getElementById('amount').value;
+        var request = {
+            checkId: checkId,
+            accountNumber: accountNumber,
+            amount: parseFloat(amount)
+        };
+        stompClient.send('/app/check', {}, JSON.stringify(request));
+    }
+</script>
+</body>
+</html>
