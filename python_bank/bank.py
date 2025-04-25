@@ -3,7 +3,7 @@ import json
 from kafka import KafkaConsumer, KafkaProducer
 from cryptography.fernet import Fernet
 
-REQUEST_TOPIC = "check-requests9"
+REQUEST_TOPIC = "check-requests"
 RESPONSE_TOPIC = "check-responses"
 KAFKA_BOOTSTRAP_SERVERS = os.getenv('KAFKA_BOOTSTRAP_SERVERS', 'kafka:9092')
 ENCRYPTION_KEY = os.getenv('ENCRYPTION_KEY', 'ThisIsASecretKey1234567890abcdef')

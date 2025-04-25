@@ -1,17 +1,17 @@
 package com.kafka_websocket.controller;
 
 import com.kafka_websocket.model.ChatMessage;
-import com.kafka_websocket.service.KafkaService;
+import com.kafka_websocket.service.ChatService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ChatController {
-    private final KafkaService kafkaService;
+    private final ChatService chatService;
 
-    public ChatController(KafkaService kafkaService) {
-        this.kafkaService = kafkaService;
+    public ChatController(ChatService chatService) {
+        this.chatService = chatService;
     }
 
     @GetMapping("/message")
@@ -21,6 +21,6 @@ public class ChatController {
 
     @MessageMapping("/sendMessage")
     public void sendMessage(ChatMessage message) throws Exception {
-        kafkaService.sendMessage(message);
+        chatService.sendMessage(message);
     }
 }
