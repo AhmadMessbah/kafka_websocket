@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat App</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #chat-box { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; margin-bottom: 20px; }
+        #message-input { width: 300px; padding: 5px; }
+        #recipient-input { width: 100px; padding: 5px; margin-left: 10px; }
+        button { padding: 5px 10px; margin-left: 10px; }
+    </style>
+</head>
+<body>
+<h2>Chat App</h2>
+<label for="user-id">Your User ID:</label>
+<input type="text" id="user-id" placeholder="Enter your ID">
+<div id="chat-box"></div>
+<input type="text" id="message-input" placeholder="Type your message">
+<input type="text" id="recipient-input" placeholder="Recipient ID (optional)">
+<button onclick="sendMessage()">Send</button>
+<button onclick="sendToAll()">Send to All</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script th:src="@{assets/js/message.js}"></script>
+</body>
+</html>

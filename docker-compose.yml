@@ -65,6 +65,21 @@ services:
     networks:
       - check-network
 
+  chat-app:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+    networks:
+      - check-network
+
+
 volumes:
   zookeeper-data:
   kafka-data:
