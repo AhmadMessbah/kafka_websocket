@@ -28,7 +28,7 @@ def consume_requests():
         REQUEST_TOPIC,
         bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,
         auto_offset_reset='earliest',
-        group_id='bank-group'
+        group_id='check-group'
     )
     for message in consumer:
         encrypted_request = message.value.decode()
